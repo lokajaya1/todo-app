@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import Logo from "./components/Logo";
+import Form from "./components/Form";
+import List from "./components/List";
+
+import "./index.css";
+import { useState } from "react";
 
 function App() {
+  const [listItems, setListItems] = useState([]);
+
+  function handleAddItem(item) {
+    setListItems((listItems) => [...listItems, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setListItems((listItems) => listItems.filter((item) => item.id !== id));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Logo />
+      <Form onAddItem={handleAddItem} />
+      <List items={listItems} onDeleteItem={handleDeleteItem} />
     </div>
   );
 }
